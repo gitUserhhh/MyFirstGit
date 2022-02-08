@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SQLModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ClsInfo">
+    <Key>
+      <PropertyRef Name="Cid" />
+    </Key>
+    <Property Name="Cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="StuInfo" Relationship="Self.FK__StuInfo__Scid__276EDEB3" FromRole="ClsInfo" ToRole="StuInfo" />
+  </EntityType>
+  <EntityType Name="StuInfo">
+    <Key>
+      <PropertyRef Name="Sid" />
+    </Key>
+    <Property Name="Sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ssex" Type="Int32" />
+    <Property Name="Sschool" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sjobname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Sphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Addtime" Type="DateTime" Precision="3" />
+    <Property Name="Scid" Type="Int32" />
+    <NavigationProperty Name="ClsInfo" Relationship="Self.FK__StuInfo__Scid__276EDEB3" FromRole="StuInfo" ToRole="ClsInfo" />
+  </EntityType>
+  <Association Name="FK__StuInfo__Scid__276EDEB3">
+    <End Role="ClsInfo" Type="Self.ClsInfo" Multiplicity="0..1" />
+    <End Role="StuInfo" Type="Self.StuInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClsInfo">
+        <PropertyRef Name="Cid" />
+      </Principal>
+      <Dependent Role="StuInfo">
+        <PropertyRef Name="Scid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SQLModelEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ClsInfo" EntityType="Self.ClsInfo" />
+    <EntitySet Name="StuInfo" EntityType="Self.StuInfo" />
+    <AssociationSet Name="FK__StuInfo__Scid__276EDEB3" Association="Self.FK__StuInfo__Scid__276EDEB3">
+      <End Role="ClsInfo" EntitySet="ClsInfo" />
+      <End Role="StuInfo" EntitySet="StuInfo" />
+    </AssociationSet>
+    <EntitySet Name="LoginInfo" EntityType="SQLModelModel.LoginInfo" />
+  </EntityContainer>
+  <EntityType Name="LoginInfo">
+    <Key>
+      <PropertyRef Name="Lid" />
+    </Key>
+    <Property Name="Lid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Lusername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Luserpwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Lrealname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

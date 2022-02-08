@@ -1,0 +1,189 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>数据表格</title>
+    <link href="~/Img/4.jpg" rel="icon" />
+    <link href="~/Content/Layer/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/Layer/layui/layui.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="layui-container" style="margin-top:150px" id="DivPhotos">
+        <h1 style="font-family: '方正舒体'; color: cornflowerblue; font-size: 30px; display: inline">数据展示</h1>
+        <img src="~/Img/6.jpg" alt="图片展示" style="height: 30px; width: 60px; border-radius: 5px; margin-bottom: 10px; cursor: pointer;margin-left:10px" />
+        <div class="layui-row" style="margin-top:10px">
+            <div class="layui-col-md3">
+                <input type="text" id="School" name="School" value="" class="layui-input" placeholder="请输入学校" />
+            </div>
+            <div class="layui-col-md3">
+                <select class="layui-input" name="slCls" id="slCls" style="margin-left:10px">
+                    <option value="">--请选择班级--</option>
+                    @foreach (var item in ViewBag.ClsInfo)
+                    {
+                        <option value="@item.Cid">@item.Cname</option>
+                    }
+                </select>
+            </div>
+            <div class="layui-col-md2" style="margin-left:20px">
+                <select class="layui-input" id="slSex" name="slSex">
+                    <option value="" selected>--请选择性别--</option>
+                    <option value="1">男</option>
+                    <option value="0">女</option>
+                </select>
+            </div>
+            <button id="Btn_Query" class="layui-btn layui-bg-cyan" style="margin-left:10px"><i class="layui-icon layui-icon-search"></i>查询</button>
+            <button class="layui-btn layui-btn-radius" onclick="aaa()" style="background-color:rgba(0,0,200,0.2)">好看的按钮</button>
+        </div>
+        <script type="text/html" id="toolbar">
+            <button class="layui-btn layui-bg-blue layui-btn-sm" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</button>
+            <button class="layui-btn layui-bg-orange layui-btn-sm" lay-event="Add"><i class="layui-icon layui-icon-add-1"></i>新增</button>
+            <button class="layui-btn layui-bg-green layui-btn-sm" lay-event="Edit"><i class="layui-icon layui-icon-edit"></i>修改</button>
+            <button class="layui-btn layui-bg-red layui-btn-sm" lay-event="AddUser"><i class="layui-icon layui-icon-face-smile"></i>新增账户</button>
+        </script>
+        <table id="tb1" lay-filter="tb1"></table>
+    </div>
+</body>
+</html>
+<script>
+    function aaa() {
+        layer.alert("你的主机名称是:" + window.location.hostname);
+        layer.msg("你的网址名称是:" + window.location.pathname);
+        history.back();
+    }
+    layui.use('table', function () {
+        var table = layui.table;
+        table.render({
+            elem: '#tb1',
+            url: '/Main/Table',
+            toolbar: '#toolbar',
+            escape: true,
+            loading: true,
+            skin: 'row',
+            even: true,
+            //无数据时显示文本,默认显示无数据
+            text: {none:'草,没数据你查个鸡...'},
+            /*size: 'lg',*/
+            cols: [[
+                { type: 'checkbox' },
+                { field: 'Sid', title: '编号', align:'center' },
+                {
+                    field: 'Ssex', title: '性别', align: 'center', templet: function (d) {
+                        if (d.Ssex == 1) {
+                            return "<font color='red'>男</font>"
+                        }
+                        else {
+                            return "女";
+                        }
+                    }
+                },
+                { field: 'Sschool', title: '学校', align: 'center' },
+                { field: 'Sjobname', title: '班级职位', align: 'center' },
+                { field: 'Sphone', title: '电话', align: 'center' },
+                {
+                    field: 'Addtime', title: '添加时间', align: 'center'
+                    },
+                { field: 'Cname', title: '班级名称', align: 'center' }
+            ]],
+            page: true
+        });
+        //头部工具栏按钮事件方法
+        table.on('toolbar(tb1)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'AddUser':
+                    layer.open({
+                        type: 2,
+                        title: '新增账户',
+                        area: ["400px", "300px"],
+                        /*skin: 'layui-layer-lan',*/
+                        closeBtn: 2,
+                        content: '/Main/AddUserData',
+                    });
+                    break;
+                case 'Edit':
+                    var dataRow = checkStatus.data;
+                    if (dataRow.length == 0) {
+                        layer.msg("请选择数据修改!");
+                        return;
+                    }
+                    if (dataRow.length > 1) {
+                        layer.msg("只能修改一条数据!");
+                        return;
+                    }
+                    layer.open({
+                        type: 2,
+                        title: '修改信息',
+                        area: ["900px", "600px"],
+                        content: '/Main/AddOrEdit?id=' + dataRow[0].Sid,
+                        closeBtn: 2,
+                        skin: 'layui-layer-lan'
+                    });
+                    break;
+                case 'Add':
+                    layer.open({
+                        type: 2,
+                        title: '新增信息',
+                        area: ["900px", "700px"],
+                        content: '/Main/AddOrEdit',
+                        closeBtn: 2,
+                        skin: 'layui-layer-lan'
+                    });
+                    break;
+                case 'del':
+                    var dataRow = checkStatus.data;
+                    if (dataRow.length == 0) {
+                        layer.msg("请选择数据再删除!");
+                        return;
+                    }
+                    var ids = [];
+                    for (var i = 0; i < dataRow.length; i++) {
+                        ids.push(dataRow[i].Sid);
+                    }
+                    layer.confirm('是否删除?', { icon: 3, title: '警告' }, function () {
+                        $.ajax({
+                            url: '/Main/DelData',
+                            data: {
+                                ids: ids.toString()
+                            },
+                            success: function (res) {
+                                if (res == "OK") {
+                                    layer.msg("删除成功!");
+                                }
+                                else {
+                                    layer.msg("删除失败!");
+                                }
+                                DataTableShow();
+                            }
+                        });
+                    })
+                    break;
+            }
+        })
+        //编写查询方法
+        function DataTableShow() {
+            table.reload('tb1', {
+                where: {
+                    school: $("#School").val(),
+                    cls: $("#slCls").val(),
+                    sex: $("#slSex").val()
+                }
+            })
+        }
+        //点击进行查询
+        $("#Btn_Query").click(function () {
+            DataTableShow();
+        });
+    })
+    //展示图片
+    layer.photos({
+        photos: '#DivPhotos',
+        anim: 2
+    });
+</script>

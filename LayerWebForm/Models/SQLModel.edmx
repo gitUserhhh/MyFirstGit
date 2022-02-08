@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SQLModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClsInfo">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="LoginInfo">
+          <Key>
+            <PropertyRef Name="Lid" />
+          </Key>
+          <Property Name="Lid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Lusername" Type="nvarchar" MaxLength="50" />
+          <Property Name="Luserpwd" Type="nvarchar" MaxLength="50" />
+          <Property Name="Lrealname" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="StuInfo">
+          <Key>
+            <PropertyRef Name="Sid" />
+          </Key>
+          <Property Name="Sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ssex" Type="int" />
+          <Property Name="Sschool" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sjobname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sphone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Addtime" Type="datetime" />
+          <Property Name="Scid" Type="int" />
+        </EntityType>
+        <Association Name="FK__StuInfo__Scid__29572725">
+          <End Role="ClsInfo" Type="Self.ClsInfo" Multiplicity="0..1" />
+          <End Role="StuInfo" Type="Self.StuInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClsInfo">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="StuInfo">
+              <PropertyRef Name="Scid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SQLModelModelStoreContainer">
+          <EntitySet Name="ClsInfo" EntityType="Self.ClsInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginInfo" EntityType="Self.LoginInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StuInfo" EntityType="Self.StuInfo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__StuInfo__Scid__29572725" Association="Self.FK__StuInfo__Scid__29572725">
+            <End Role="ClsInfo" EntitySet="ClsInfo" />
+            <End Role="StuInfo" EntitySet="StuInfo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SQLModelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClsInfo">
+          <Key>
+            <PropertyRef Name="Cid" />
+          </Key>
+          <Property Name="Cid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="StuInfo" Relationship="Self.FK__StuInfo__Scid__276EDEB3" FromRole="ClsInfo" ToRole="StuInfo" />
+        </EntityType>
+        <EntityType Name="StuInfo">
+          <Key>
+            <PropertyRef Name="Sid" />
+          </Key>
+          <Property Name="Sid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ssex" Type="Int32" />
+          <Property Name="Sschool" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sjobname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sphone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Addtime" Type="DateTime" Precision="3" />
+          <Property Name="Scid" Type="Int32" />
+          <NavigationProperty Name="ClsInfo" Relationship="Self.FK__StuInfo__Scid__276EDEB3" FromRole="StuInfo" ToRole="ClsInfo" />
+        </EntityType>
+        <Association Name="FK__StuInfo__Scid__276EDEB3">
+          <End Role="ClsInfo" Type="Self.ClsInfo" Multiplicity="0..1" />
+          <End Role="StuInfo" Type="Self.StuInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClsInfo">
+              <PropertyRef Name="Cid" />
+            </Principal>
+            <Dependent Role="StuInfo">
+              <PropertyRef Name="Scid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SQLModelEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClsInfo" EntityType="Self.ClsInfo" />
+          <EntitySet Name="StuInfo" EntityType="Self.StuInfo" />
+          <AssociationSet Name="FK__StuInfo__Scid__276EDEB3" Association="Self.FK__StuInfo__Scid__276EDEB3">
+            <End Role="ClsInfo" EntitySet="ClsInfo" />
+            <End Role="StuInfo" EntitySet="StuInfo" />
+          </AssociationSet>
+          <EntitySet Name="LoginInfo" EntityType="SQLModelModel.LoginInfo" />
+        </EntityContainer>
+        <EntityType Name="LoginInfo">
+          <Key>
+            <PropertyRef Name="Lid" />
+          </Key>
+          <Property Name="Lid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Lusername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Luserpwd" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lrealname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SQLModelModelStoreContainer" CdmEntityContainer="SQLModelEntities">
+          <EntitySetMapping Name="ClsInfo">
+            <EntityTypeMapping TypeName="SQLModelModel.ClsInfo">
+              <MappingFragment StoreEntitySet="ClsInfo">
+                <ScalarProperty Name="Cid" ColumnName="Cid" />
+                <ScalarProperty Name="Cname" ColumnName="Cname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StuInfo">
+            <EntityTypeMapping TypeName="SQLModelModel.StuInfo">
+              <MappingFragment StoreEntitySet="StuInfo">
+                <ScalarProperty Name="Sid" ColumnName="Sid" />
+                <ScalarProperty Name="Ssex" ColumnName="Ssex" />
+                <ScalarProperty Name="Sschool" ColumnName="Sschool" />
+                <ScalarProperty Name="Sjobname" ColumnName="Sjobname" />
+                <ScalarProperty Name="Sphone" ColumnName="Sphone" />
+                <ScalarProperty Name="Addtime" ColumnName="Addtime" />
+                <ScalarProperty Name="Scid" ColumnName="Scid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginInfo">
+            <EntityTypeMapping TypeName="SQLModelModel.LoginInfo">
+              <MappingFragment StoreEntitySet="LoginInfo">
+                <ScalarProperty Name="Lrealname" ColumnName="Lrealname" />
+                <ScalarProperty Name="Luserpwd" ColumnName="Luserpwd" />
+                <ScalarProperty Name="Lusername" ColumnName="Lusername" />
+                <ScalarProperty Name="Lid" ColumnName="Lid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

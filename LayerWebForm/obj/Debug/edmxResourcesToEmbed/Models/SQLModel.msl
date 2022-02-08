@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SQLModelModelStoreContainer" CdmEntityContainer="SQLModelEntities">
+    <EntitySetMapping Name="ClsInfo">
+      <EntityTypeMapping TypeName="SQLModelModel.ClsInfo">
+        <MappingFragment StoreEntitySet="ClsInfo">
+          <ScalarProperty Name="Cid" ColumnName="Cid" />
+          <ScalarProperty Name="Cname" ColumnName="Cname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StuInfo">
+      <EntityTypeMapping TypeName="SQLModelModel.StuInfo">
+        <MappingFragment StoreEntitySet="StuInfo">
+          <ScalarProperty Name="Sid" ColumnName="Sid" />
+          <ScalarProperty Name="Ssex" ColumnName="Ssex" />
+          <ScalarProperty Name="Sschool" ColumnName="Sschool" />
+          <ScalarProperty Name="Sjobname" ColumnName="Sjobname" />
+          <ScalarProperty Name="Sphone" ColumnName="Sphone" />
+          <ScalarProperty Name="Addtime" ColumnName="Addtime" />
+          <ScalarProperty Name="Scid" ColumnName="Scid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LoginInfo">
+      <EntityTypeMapping TypeName="SQLModelModel.LoginInfo">
+        <MappingFragment StoreEntitySet="LoginInfo">
+          <ScalarProperty Name="Lrealname" ColumnName="Lrealname" />
+          <ScalarProperty Name="Luserpwd" ColumnName="Luserpwd" />
+          <ScalarProperty Name="Lusername" ColumnName="Lusername" />
+          <ScalarProperty Name="Lid" ColumnName="Lid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

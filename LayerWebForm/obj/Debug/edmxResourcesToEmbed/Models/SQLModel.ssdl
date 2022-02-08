@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SQLModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ClsInfo">
+    <Key>
+      <PropertyRef Name="Cid" />
+    </Key>
+    <Property Name="Cid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cname" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="LoginInfo">
+    <Key>
+      <PropertyRef Name="Lid" />
+    </Key>
+    <Property Name="Lid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Lusername" Type="nvarchar" MaxLength="50" />
+    <Property Name="Luserpwd" Type="nvarchar" MaxLength="50" />
+    <Property Name="Lrealname" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="StuInfo">
+    <Key>
+      <PropertyRef Name="Sid" />
+    </Key>
+    <Property Name="Sid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ssex" Type="int" />
+    <Property Name="Sschool" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sjobname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Sphone" Type="nvarchar" MaxLength="50" />
+    <Property Name="Addtime" Type="datetime" />
+    <Property Name="Scid" Type="int" />
+  </EntityType>
+  <Association Name="FK__StuInfo__Scid__29572725">
+    <End Role="ClsInfo" Type="Self.ClsInfo" Multiplicity="0..1" />
+    <End Role="StuInfo" Type="Self.StuInfo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClsInfo">
+        <PropertyRef Name="Cid" />
+      </Principal>
+      <Dependent Role="StuInfo">
+        <PropertyRef Name="Scid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SQLModelModelStoreContainer">
+    <EntitySet Name="ClsInfo" EntityType="Self.ClsInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginInfo" EntityType="Self.LoginInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StuInfo" EntityType="Self.StuInfo" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__StuInfo__Scid__29572725" Association="Self.FK__StuInfo__Scid__29572725">
+      <End Role="ClsInfo" EntitySet="ClsInfo" />
+      <End Role="StuInfo" EntitySet="StuInfo" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
